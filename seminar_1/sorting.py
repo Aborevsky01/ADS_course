@@ -20,8 +20,8 @@ def insertionSort(array):
 def heapify(array, N, i):
     # On each run of heapify, we want to find the largest value
     # among parent (i), child_1 (l) & child_2 (r)
-    largest = i 
-    left_child = 2 * i + 1
+    largest     = i 
+    left_child  = 2 * i + 1
     right_child = 2 * i + 2
  
     # Check if left child exists and is greater than parent
@@ -35,7 +35,6 @@ def heapify(array, N, i):
     # if parent is not largest, change their positions
     if largest != i:
         array[i], array[largest] = array[largest], array[i]
-        # Run the new iteration 
         heapify(array, N, largest)
         
  
@@ -72,3 +71,25 @@ def countSort(array):
 
     for i in range(len(array)): array[i] = output[i]
     return array
+
+# IV. BINARY INSERTION sort O(n^2)
+def binInsertSort(array):
+    for elem_index in range(1, len(array)):
+        elem_value = array[elem_index]
+        j = binary_search(array, elem_value, left=0, right=elem_index-1)
+        array = array[:j] + [elem_value] \
+                + array[j:elem_index] + array[elem_index+1:]
+    return array
+    
+
+def binary_search(array, value, left, right):
+    if left == right:
+        if array[left] > value: return left
+        return left+1
+    if left > right: return left
+    
+    middle = (left + right)//2
+    if array[middle] < value: return binary_search(array, value, middle+1, right)
+    if array[middle] > value: return binary_search(array, value, left, middle-1)
+    return middle
+    
