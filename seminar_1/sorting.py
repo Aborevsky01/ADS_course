@@ -54,22 +54,22 @@ def heapSort(array):
  
 
 # III. COUNT sort O(n+k)
-def countSort(array):
+def countSort(array, func=lambda x: x):
     # First step: initialize all arrays (incl. count bins)
-    k      = max(array)
+    k      = len(array)
     output = [0] * len(array)
-    count  = [0] * (k + 1)
+    count  = [0] * 10
 
     # Second step: count appearance of each value & where it should stand
-    for i in array: count[i] += 1
-    for i in range(1, k+1): count[i] += count[i-1]
+    for i in range(k): count[func(array[i])] += 1
+    for i in range(1, 10): count[i] += count[i-1]
 
     # Third step: place all elements on the respective place
-    for i in array:
-        output[count[i] - 1] = i
-        count[i]            -= 1
+    for i in range(k-1,-1,-1):
+        output[count[func(array[i])] - 1] = array[i]
+        count[func(array[i])]            -= 1
 
-    for i in range(len(array)): array[i] = output[i]
+    for i in range(k): array[i] = output[i]
     return array
 
 # IV. BINARY INSERTION sort O(n^2)
