@@ -30,7 +30,7 @@ def deleteNode(root, key):
         if   root.left  is None: root = root.right
         elif root.right is None: root = root.left
         else:
-            root = minValueNode(root.right)
+            root.value = minValueNode(root.right).value
             root.right = deleteNode(root.right, root.key)
 
     return root
